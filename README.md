@@ -3,15 +3,15 @@
 Shorcuts for kubernetes with several contexts support.
 
 ## Usage:
-| Shortcut | Short example                            | Full example                                      | Comment                                   |
-|----------|------------------------------------------|---------------------------------------------------|-------------------------------------------|
-| k        | k get pods                               | kubectl get pods                                  | Any command with default context          |
-| kd       | kd get pods                              | kubectl --context dev get pods                    | Any command with "dev" context            |
-| kt       | kt get pods                              | kubectl --context test get pods                   | Any command with "test" context           |
-| kde      | kde <unique-part-of-pod-name>            | kubectl --conetxt dev exec -it <pod-name> -- sh   | Open shell inside a pod in "dev" context  |
-| kte      | kte <unique-part-of-pod-name>            | kubectl --context test exec -it <pod-name> -- sh  | Open shell inside a pod in "test" context |
-| kdl      | kle <unique-part-of-pod-name> [--follow] | kubectl --context dev logs <pod-name> [--follow]  | Show logs for a pod in "dev" cotext       |
-| ktl      | ktl <unique-part-of-pod-name> [--follow] | kubectl --context test logs <pod-name> [--follow] | Show logs for a pod in "test" context     |
+| Shortcut | Short example                                  | Full example                                            | Comment                                   |
+|----------|------------------------------------------------|---------------------------------------------------------|-------------------------------------------|
+| k        | k get pods                                     | kubectl get pods                                        | Any command with default context          |
+| kd       | kd get pods                                    | kubectl --context dev get pods                          | Any command with "dev" context            |
+| kt       | kt get pods                                    | kubectl --context test get pods                         | Any command with "test" context           |
+| kde      | kde &lt;unique-part-of-pod-name&gt;            | kubectl --conetxt dev exec -it &lt;pod-name&gt; -- sh   | Open shell inside a pod in "dev" context  |
+| kte      | kte &lt;unique-part-of-pod-name&gt;            | kubectl --context test exec -it &lt;pod-name&gt; -- sh  | Open shell inside a pod in "test" context |
+| kdl      | kle &lt;unique-part-of-pod-name&gt; [--follow] | kubectl --context dev logs &lt;pod-name&gt; [--follow]  | Show logs for a pod in "dev" cotext       |
+| ktl      | ktl &lt;unique-part-of-pod-name&gt; [--follow] | kubectl --context test logs &lt;pod-name&gt; [--follow] | Show logs for a pod in "test" context     |
 
 
 ## Configure:
