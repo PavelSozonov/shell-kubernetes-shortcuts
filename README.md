@@ -1,6 +1,6 @@
 # zsh-bash-kubernetes-short-aliases
 
-Shorcuts for kubernetes with several contexts.
+Shorcuts for kubernetes with several contexts support.
 
 ## Usage:
 | Shortcut | Short example                            | Full example                                      | Comment                                   |
@@ -17,6 +17,7 @@ Shorcuts for kubernetes with several contexts.
 ## Configure:
 
 `Bash`: append `~/.bash_profile` or `~/.bashrc`
+
 `Zsh`: append `~/.zshrc`
 
 ```sh
