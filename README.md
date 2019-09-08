@@ -76,10 +76,12 @@ alias kt="kubectl --context test"
 
 Apply changes: 
 
+`Zsh:`
 ```zsh
 source ~/.zshrc
 ```
 
+`Bash:`
 ```bash
 source ~/.bash_profile # or source ~/.bashrc
 ```
