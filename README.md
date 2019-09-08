@@ -16,9 +16,13 @@ Shorcuts for kubernetes with several contexts support.
 
 ## Configure:
 
-`Bash`: append `~/.bash_profile` or `~/.bashrc`
+`Bash`: 
 
-`Zsh`: append `~/.zshrc`
+append `~/.bash_profile` or `~/.bashrc`
+
+`Zsh`: 
+
+append `~/.zshrc`
 
 ```sh
 kdl() {
