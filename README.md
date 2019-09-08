@@ -1,4 +1,4 @@
-# zsh-bash-kubernetes-short-aliases
+# shell-kubernetes-shortcuts
 
 Shorcuts for kubernetes with several contexts support.
 
