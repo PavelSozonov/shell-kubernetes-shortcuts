@@ -21,7 +21,8 @@ append `~/.bash_profile` or `~/.bashrc`
 
 append `~/.zshrc`
 
-```kev() {
+```
+kev() {
         kevent $1
 }
 
