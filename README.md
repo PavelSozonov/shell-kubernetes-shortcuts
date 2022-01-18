@@ -6,14 +6,9 @@ Shorcuts for kubernetes with several contexts support.
 | Shortcut | Short example                                  | Full example                                                       | Comment                                                                        |
 |----------|------------------------------------------------|--------------------------------------------------------------------|--------------------------------------------------------------------------------|
 | k        | k get pods                                     | kubectl get pods                                                   | Any command with default context                                               |
-| kd       | kd get pods                                    | kubectl --context dev get pods                                     | Any command with "dev" context                                                 |
-| kt       | kt get pods                                    | kubectl --context test get pods                                    | Any command with "test" context                                                |
-| kde      | kde &lt;unique-part-of-pod-name&gt;            | kubectl --conetxt dev exec -it &lt;pod-name&gt; -- sh              | Open shell inside a pod in "dev" context                                       |
-| kte      | kte &lt;unique-part-of-pod-name&gt;            | kubectl --context test exec -it &lt;pod-name&gt; -- sh             | Open shell inside a pod in "test" context                                      |
-| kdl      | kle &lt;unique-part-of-pod-name&gt; [--follow] | kubectl --context dev logs &lt;pod-name&gt; [--follow]             | Show logs for a pod in "dev" cotext                                            |
-| ktl      | ktl &lt;unique-part-of-pod-name&gt; [--follow] | kubectl --context test logs &lt;pod-name&gt; [--follow]            | Show logs for a pod in "test" context                                          |
-| kdgp     | kdgp &lt;part-of-pod-name&gt;                  | kubectl --context dev get pod &#124; grep &lt;part-of-pod-name&gt; | Show "get pod" info for pods which matches with $2 substring in "dev" context  |
-| ktgp     | ktgp &lt;part-of-pod-name&gt;                  | kubectl --context test get pod &#124; grep &lt;part-of-pod-name&gt;| Show "get pod" info for pods which matches with $2 substring in "test" context |
+| ke       | ke &lt;unique-part-of-pod-name&gt;             | kubectl exec -it &lt;pod-name&gt; -- sh                            | Open shell inside a pod                                                        |
+| kl       | ke &lt;unique-part-of-pod-name&gt; [--follow]  | kubectl logs &lt;pod-name&gt; [--follow]                           | Show logs for a pod                                                            |
+| kgp      | kgp &lt;part-of-pod-name&gt; (or without args) | kubectl get pod &#124; grep &lt;part-of-pod-name&gt;               | Show "get pod" info for pods which matches with $1 substring (or for all pods) |
 
 ## Configure:
 
@@ -25,75 +20,74 @@ append `~/.bash_profile` or `~/.bashrc`
 
 append `~/.zshrc`
 
-```sh
-kdl() {
-        klog "dev" $1 ${@:2}
+```kev() {
+        kevent $1
 }
 
-ktl() {
-        klog "test" $1 ${@:2}
+kl() {
+        klog $1 ${@:2}
 }
 
-kde() {
-        kexec "dev" $1
+ke() {
+        kexec $1
 }
 
-kte() {
-        kexec "test" $1
+kgp() {
+        if [ $# -ne 0 ]; then
+          kpod $1
+        else
+          kubectl get pods
+        fi
 }
 
-kdgp() {
-        kpod "dev" $1
-}
-
-ktgp() {
-        kpod "test" $1
-}
-
-# Match pod names with $2 arg, and return the last of them
+# Match pod names with $1 arg, and return the last of them
 #
 # Args:
-# $1 - context name
-# $2 - pod name matching pattern (substring)
+# $1 - pod name matching pattern (substring)
 get_pod() {
-        echo `kubectl --context $1 get pods | grep $2 | tail -1 | awk '{ print $1 }'`
+        echo `kubectl get pods | grep $1 | tail -1 | awk '{ print $1 }'`
 }
 
-# Show "get pod" info for pods which matches with $2 substring
+# Show "get pod" info for pods which matches with $1 substring
 #
 # Agrs:
-# $1 - context name
-# $2 - pod name matching pattern (substring)
+# $1 - pod name matching pattern (substring)
 kpod() {
-        kubectl --context $1 get pod | grep $2
+        kubectl get pod | grep $1
 }
 
-# Show logs for pod which matches with $2 substring
+# Show logs for pod which matches with $1 substring
 #
 # Agrs:
-# $1 - context name
-# $2 - pod name matching pattern (substring)
-# ${@:3} - additional arguments, e.g. "--follow"
+# $1 - pod name matching pattern (substring)
+# ${@:2} - additional arguments, e.g. "--follow"
 klog() {
-        pod=`get_pod $1 $2`
+        pod=`get_pod $1`
         echo "Pod name: ${pod}"
-        kubectl --context $1 logs ${pod} ${@:3}
+        kubectl logs ${pod} ${@:2}
 }
 
-# Run sh inside pod which matches with $2 substring
+# Run sh inside pod which matches with $1 substring
 # 
 # Args:
-# $1 - context name
-# $2 - pod name matching pattern (substring)
+# $1 - pod name matching pattern (substring)
 kexec() {
-        pod=`get_pod $1 $2`
+        pod=`get_pod $1`
         echo "Pod name: ${pod}"
-        kubectl --context $1 exec -it ${pod} -- sh
+        kubectl exec -it ${pod} -- sh
+}
+
+# Listen vents for pod which matches with $1 substring
+# 
+# Args:
+# $1 - pod name matching pattern (substring)
+kevent() {
+        pod=`get_pod $1`
+        echo "Pod name: ${pod}"
+        kubectl get event -w --field-selector involvedObject.name=${pod}
 }
 
 alias k=kubectl
-alias kd="kubectl --context dev"
-alias kt="kubectl --context test"
 ```
 
 Apply changes: 
