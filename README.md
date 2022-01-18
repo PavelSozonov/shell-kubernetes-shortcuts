@@ -3,12 +3,13 @@
 Shorcuts for kubernetes with several contexts support.
 
 ## Usage:
-| Shortcut | Short example                                  | Full example                                                       | Comment                                                                        |
-|----------|------------------------------------------------|--------------------------------------------------------------------|--------------------------------------------------------------------------------|
-| k        | k get pods                                     | kubectl get pods                                                   | Any command with default context                                               |
-| ke       | ke &lt;unique-part-of-pod-name&gt;             | kubectl exec -it &lt;pod-name&gt; -- sh                            | Open shell inside a pod                                                        |
-| kl       | ke &lt;unique-part-of-pod-name&gt; [--follow]  | kubectl logs &lt;pod-name&gt; [--follow]                           | Show logs for a pod                                                            |
-| kgp      | kgp &lt;part-of-pod-name&gt; (or without args) | kubectl get pod &#124; grep &lt;part-of-pod-name&gt;               | Show "get pod" info for pods which matches with $1 substring (or for all pods) |
+| Shortcut | Short example                                  | Full example                                                                       | Comment                                                                        |
+|----------|------------------------------------------------|------------------------------------------------------------------------------------|--------------------------------------------------------------------------------|
+| k        | k get pods                                     | kubectl get pods                                                                   | Any command with default context                                               |
+| kev      | kev &lt;unique-part-of-pod-name&gt;            | kubectl get event -w --field-selector involvedObject.name=&lt;part-of-pod-name&gt; | Listen events for a pod                                                        |
+| ke       | ke &lt;unique-part-of-pod-name&gt;             | kubectl exec -it &lt;pod-name&gt; -- sh                                            | Open shell inside a pod                                                        |
+| kl       | ke &lt;unique-part-of-pod-name&gt; [--follow]  | kubectl logs &lt;pod-name&gt; [--follow]                                           | Show logs for a pod                                                            |
+| kgp      | kgp &lt;part-of-pod-name&gt; (or without args) | kubectl get pod &#124; grep &lt;part-of-pod-name&gt;                               | Show "get pod" info for pods which matches with $1 substring (or for all pods) |
 
 ## Configure:
 
